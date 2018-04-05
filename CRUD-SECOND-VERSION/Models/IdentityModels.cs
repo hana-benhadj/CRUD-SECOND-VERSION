@@ -28,6 +28,11 @@ namespace CRUD_SECOND_VERSION.Models
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+
         }
+
+        public System.Data.Entity.DbSet<CRUD_SECOND_VERSION.Models.Employee> Employees { get; set; }
+
+        public System.Data.Entity.DbSet<CRUD_SECOND_VERSION.Models.Department> Departments { get; set; }
     }
 }

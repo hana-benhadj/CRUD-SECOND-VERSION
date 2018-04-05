@@ -1,0 +1,34 @@
+﻿@model CRUD_SECOND_VERSION.Models.Employee
+
+@{
+    ViewBag.Title = "Details";
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/fontawesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/modernizr-2.6.2.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+@*<script src="~/Content/jquery-ui.js"></script>*@
+<center>
+ 
+
+        @Html.DisplayNameFor(model => model.Name)
+        <br />
+        @Html.DisplayFor(model => model.Name)
+        <br />
+        Department
+        <br />
+        @Html.DisplayFor(model => model.Department.Name)
+        <br />
+        @Html.DisplayNameFor(model => model.Position)
+        <br />
+        @Html.DisplayFor(model => model.Position)
+
+        <br />
+
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</center>
+

@@ -1,0 +1,76 @@
+﻿@model CRUD_SECOND_VERSION.Models.Department
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<br /><br /><br /><br />
+<h2>Add a new department</h2>
+<h6>Please enter the required informations</h6>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @enctype = "multipart/form-data" }))
+
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        <center>
+            <table class="table table-info table-striped table-bordered ">
+                <thead>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @*<div class="form-group">*@
+                    <tr>
+                        <th>
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        </th>
+
+                        <th>
+
+
+                            @*<div class="col-md-10">*@
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            @*</div>*@
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+                        </th>
+                        <th>
+
+
+                            @Html.TextBoxFor(model => model.Image, new { @type = "file" })
+
+
+                        </th>
+                    </tr>
+
+                </thead>
+            </table>
+            <br />
+            <br />
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create department" class="btn btn-outline-primary btn-lg button1" />
+            </div>
+          
+        </center>
+
+        <div class="pull-right">
+            @Html.ActionLink("List of departments", "Index")
+        </div>
+    </div>
+    @*</div>*@
+}
+
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

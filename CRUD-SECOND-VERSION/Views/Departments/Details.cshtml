@@ -1,0 +1,26 @@
+﻿@model  CRUD_SECOND_VERSION.Models.Department
+
+<div>
+    <h4>Department</h4>
+    <hr />
+
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+    </dl>
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdDep }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+@Html.Partial("EmployeeByDepartment", Model.Emp)
+
+

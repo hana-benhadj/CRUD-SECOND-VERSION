@@ -1,0 +1,76 @@
+﻿@model IEnumerable<CRUD_SECOND_VERSION.Models.Department>
+
+@{
+    ViewBag.Title = "Index";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> </title>
+    <link rel="stylesheet" href="~/Content/CSS/emp.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/fontawesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+
+    <link href="~/Content/StyleTable.css" rel="stylesheet" />
+    <link href="~/Content/media1/css/jquery.dataTables.css" rel="stylesheet" />
+    <script src="~/Content/media1/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#example").dataTable();
+        });
+    </script>
+</head>
+<body>
+    <br />  <br />  <br />  <br />
+    <h2>List of departments</h2>
+    <br />
+    <br />
+    <p>
+        <i class="fa fa-plus-circle" aria-hidden="true" style=" color:deeppink;"></i>
+        @Html.ActionLink("Click here to add a new department", "Create")
+    </p>
+    <article class="module width_full article">
+            <table id="example" class="display" cellspacing="0" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                @foreach (var item in Model)
+        {     
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+
+                    <td>
+                        <i class="fas fa-edit" style=" color:darkgreen;"></i>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.IdDep })
+                        <i class="far fa-address-card" style=" color:salmon;"></i>
+                        @Html.ActionLink("Details", "Details", new { id = item.IdDep })
+                        <i class="fa fa-window-close" aria-hidden="true" style=" color:red;"> </i>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.IdDep })
+                    </td>
+
+                    <td>
+                        <img src="~/RetrieveImage/@item.ImageUrl" />
+                    </td>
+                </tr>          
+}
+            </table>
+</article>
+
+</body>
+</html>

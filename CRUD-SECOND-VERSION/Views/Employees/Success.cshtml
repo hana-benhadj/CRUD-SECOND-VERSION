@@ -1,0 +1,39 @@
+﻿@model CRUD_SECOND_VERSION.Models.Employee
+
+@{
+    ViewBag.Title = "Success";
+}
+
+<h2>Success</h2>
+
+
+<h3>List employees</h3>
+<table>
+
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Name)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.Position)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.Department.Name)
+        </td>
+    </tr>
+    @foreach (var item in ViewBag.employees)
+    {
+    
+    <tr id="demo" onclick="changeColor(this)">
+        <td>
+            @item.Name
+        </td>
+        <td>
+            @item.Position
+        </td>
+        <td>
+            @item.Department.Name
+        </td>
+    </tr>
+                }
+    </table>

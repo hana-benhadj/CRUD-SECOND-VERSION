@@ -1,0 +1,91 @@
+﻿@model CRUD_SECOND_VERSION.Models.Employee
+@{
+    ViewBag.Title = "Create";
+}
+<br /><br /><br /><br />
+<center><h2>Add a new employee</h2></center>
+<br />
+<h6>Please enter the required informations</h6>
+<script src="~/Scripts/awem.js"></script>
+<script src="~/Scripts/AwesomeMvc.js"></script>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @*<div class="form-horizontal">*@
+
+    <hr />
+    <center>
+        <table class="table table-info table-striped table-bordered ">
+            <thead>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @*<div class="form-group">*@
+                <tr>
+                    <th>
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    </th>
+
+                    <th>
+                        @*<div class="col-md-10">*@
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        @*</div>*@
+                    </th>
+                </tr>
+            </thead>
+            @*</div>*@
+            <tbody>
+                <tr>
+                    <th>
+                        @*<div class="form-group">*@
+                        @Html.LabelFor(model => model.Position, htmlAttributes: new { @class = "control-label col-md-2" })
+                    </th>
+
+                    <th>
+                        @*<div class="col-md-10">*@
+                        @Html.EditorFor(model => model.Position, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+                        @*</div>*@
+                        @*</div>*@
+                    </th>
+                </tr>
+
+                <tr>
+                    <th>
+                        @Html.LabelFor(model => model.IdDep, "Department", htmlAttributes: new { @class = "control-label" })
+                    </th>
+                    <th>
+                        @Html.DropDownList("IdDep", null, htmlAttributes: new { @class = "form-control" })
+                    </th>
+
+            </tbody>
+
+            @*<div class="form-group">*@
+
+            @*</div>*@
+            @*</div>*@
+        </table>
+
+        <br />
+
+      
+        <br/>
+        <br/>
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create employee" class="btn btn-outline-primary btn-lg button1" />
+        </div>
+
+    </center>
+}
+<div class="pull-right">
+    <i class="fa fa-link" aria-hidden="true"></i>
+    @Html.ActionLink("List of employees", "Index")
+</div>
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

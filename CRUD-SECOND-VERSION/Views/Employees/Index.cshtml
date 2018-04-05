@@ -1,0 +1,232 @@
+﻿@model PagedList.IPagedList<CRUD_SECOND_VERSION.Models.Employee>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> </title>
+    <link rel="stylesheet" href="~/Content/CSS/emp.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/fontawesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+    <br />  <br />  <br />  <br />
+    <h2>List of employees</h2>
+    <br />
+    @*@Html.ActionLink("Click here to add a new employee", "Create")*@
+    <a href="#" onclick="CreateEmpPopup()">Click here to add a new employee</a>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body" id="CreateEmpPopup">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />  <br />
+    @using (Html.BeginForm())
+
+    {
+        <p>
+            @Html.TextBox("search", ViewBag.CurrentFilter as string)
+
+            <input type="submit" value="Search" />
+        </p>
+    }
+
+
+    <form id="form1" action=@Url.Action("Index","Employees") method="get">
+
+        @Html.DropDownList("pagesize", (SelectList)ViewBag.PageSizeList, "--Select--")
+
+    </form>
+    <br />
+
+    <i class="fa fa-plus-circle" aria-hidden="true" style=" color:deeppink;"></i>
+
+    <table id="table1" class="table table-info table-striped table-bordered " style="width:60%">
+        <thead>
+
+            <tr>
+                <th>
+                    @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+                </th>
+                <th>
+                    @Html.ActionLink("Position", "Index", new { sortOrder = ViewBag.PositionSortParm, currentFilter = ViewBag.CurrentFilter })
+                </th>
+                <th>
+
+                    Department
+
+                </th>
+
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tbody>
+                <tr id="demo" onclick="changeColor(this)">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Position)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Department.Name)
+                    </td>
+                    <td>
+                        <i class="fas fa-edit" style=" color:darkgreen;"></i>
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.Id })*@
+
+                        <a href="#" id="@item.Id" onclick="EditEmpPopup(@item.Id)">Edit</a>
+                        <div class="modal fade" id="myModal4">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <div class="modal-body" id="EditEmpPopup">
+                                    </div>
+                                    <!-- Modal footer -->                                   
+                                </div>
+                            </div>
+                        </div>
+
+                        <i class="far fa-address-card" style=" color:salmon;"></i>
+
+                        <a href="#" id="@item.Id" onclick="DetailsPopup(@item.Id)">Details</a>
+                        <div class="modal fade" id="myModal2">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <div class="modal-body" id="DetailsPopup">
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <i class="fa fa-window-close" aria-hidden="true" style=" color:red;"> </i>
+                        @*@Html.ActionLink("Deletee", "Delete", new { id = item.Id })*@
+                        <a href="#" id="@item.Id" onclick="DeleteEmpPopup(@item.Id)">Delete</a>
+                        <div class="modal fade" id="myModal3">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <div class="modal-body" id="DeleteEmpPopup">
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+                                                new
+                                                { page,
+                                                    sortOrder = ViewBag.CurrentSort,
+                                                    currentFilter = ViewBag.CurrentFilter,
+                                                    pagesize = ViewBag.CurrentPageSize
+                                                }))
+</body>
+</html>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js">
+</script>
+<script type="text/javascript">
+    $(function () {
+        // When onchange event occurs on <select id="pagesize">,
+        // simply submit the form, which will submit the new pagesize value as querystring.
+        if ($('#search').val() == '')
+            $('#pagesize').on('change', function () {
+                $('#form1').submit();
+            });
+    });
+</script>
+<script>
+    function changeColor(o) {
+        o.style.backgroundColor = (o.style.backgroundColor == 'aqua') ?
+            ('transparent') : ('aqua');
+    }
+</script>
+
+<script>
+    var DetailsPopup = function (Id) {
+        var url = "../Employees/View/" + Id;
+        $('#DetailsPopup').load(url, function () {
+            $('#myModal2').modal('show');
+        })
+    }
+
+</script>
+<script>
+    var CreateEmpPopup = function () {
+        var url = "../Employees/CreateEmpView/";
+        $('#CreateEmpPopup').load(url, function () {
+            $('#myModal').modal('show');
+        })
+    }
+
+</script>
+<script>
+    var DeleteEmpPopup = function (Id) {
+        var url = "../Employees/Delete/" + Id;
+        $('#DeleteEmpPopup').load(url, function () {
+            $('#myModal3').modal('show');
+        })
+    }
+</script>
+<script>
+    var EditEmpPopup = function (Id) {
+        var url = "../Employees/Edit/" + Id;
+        $('#EditEmpPopup').load(url, function () {
+            $('#myModal4').modal('show');
+        })
+    }
+
+</script>
