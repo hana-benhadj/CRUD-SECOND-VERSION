@@ -51,17 +51,17 @@ namespace CRUD_SECOND_VERSION
             //    clientSecret: "");
 
             //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            //   consumerKey: "pbHFxJITb9ROYBoRCfs1XKW7X",
+            //   consumerSecret: "DQs165Q911WvrziRls06bf2zKRuu8isFXfHHH5nhy8Q8Ej0a01");
 
             //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            //   appId: "366195700563482",
+            //   appSecret: "541e9546e2c799b640fd484d77790e0d");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
-            //    ClientId = "",
-            //    ClientSecret = ""
+            //    ClientId = "313689638129-qb685pl4j9lk9f2tm2948t3t1qklmar7.apps.googleusercontent.com",
+            //    ClientSecret = "KmLompgIWXt1N8WBP5MLTZi4"
             //});
         }
     }

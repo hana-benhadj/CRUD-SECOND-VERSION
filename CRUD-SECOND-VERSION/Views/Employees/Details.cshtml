@@ -10,21 +10,23 @@
 <script src="~/Scripts/bootstrap.min.js"></script>
 @*<script src="~/Content/jquery-ui.js"></script>*@
 <center>
- 
 
-        @Html.DisplayNameFor(model => model.Name)
-        <br />
-        @Html.DisplayFor(model => model.Name)
-        <br />
-        Department
-        <br />
-        @Html.DisplayFor(model => model.Department.Name)
-        <br />
-        @Html.DisplayNameFor(model => model.Position)
-        <br />
-        @Html.DisplayFor(model => model.Position)
 
-        <br />
+    @Html.DisplayNameFor(model => model.Name)
+    <br />
+    @Html.DisplayFor(model => model.Name)
+    <br />
+    Department
+    <br />
+    @Html.DisplayFor(model => model.Department.Name)
+    <br />
+    @Html.DisplayNameFor(model => model.Position)
+    <br />
+    @Html.DisplayFor(model => model.Position)
+    <br />
+   
+
+
 
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |

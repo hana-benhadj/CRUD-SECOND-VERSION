@@ -5,7 +5,6 @@
 
     ViewBag.Title = "Index";
 }
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +26,7 @@
     <h2>List of employees</h2>
     <br />
     @*@Html.ActionLink("Click here to add a new employee", "Create")*@
+    <i class="fa fa-plus-circle" style=" color:deeppink;"></i>
     <a href="#" onclick="CreateEmpPopup()">Click here to add a new employee</a>
     <div class="modal fade" id="myModal">
         <div class="modal-dialog">
@@ -61,12 +61,8 @@
 
     </form>
     <br />
-
-    <i class="fa fa-plus-circle" aria-hidden="true" style=" color:deeppink;"></i>
-
-    <table id="table1" class="table table-info table-striped table-bordered " style="width:60%">
+    <table id="table1" class="table table-info table-striped table-bordered ">
         <thead>
-
             <tr>
                 <th>
                     @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
@@ -75,11 +71,8 @@
                     @Html.ActionLink("Position", "Index", new { sortOrder = ViewBag.PositionSortParm, currentFilter = ViewBag.CurrentFilter })
                 </th>
                 <th>
-
                     Department
-
                 </th>
-
             </tr>
         </thead>
         @foreach (var item in Model)
@@ -96,10 +89,12 @@
                         @Html.DisplayFor(modelItem => item.Department.Name)
                     </td>
                     <td>
-                        <i class="fas fa-edit" style=" color:darkgreen;"></i>
+
+
+                        <i class="fas fa-edit" style=" color:darkgreen;" id="slide"></i>
                         @*@Html.ActionLink("Edit", "Edit", new { id = item.Id })*@
 
-                        <a href="#" id="@item.Id" onclick="EditEmpPopup(@item.Id)">Edit</a>
+                        <a href="#" id="@item.Id" onclick="EditEmpPopup(@item.Id)" @*data-toggle="tooltip" data-placement="left"*@ @*title="Edit" class="edit"*@>Edit</a>
                         <div class="modal fade" id="myModal4">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -111,14 +106,14 @@
                                     <!-- Modal body -->
                                     <div class="modal-body" id="EditEmpPopup">
                                     </div>
-                                    <!-- Modal footer -->                                   
+                                    <!-- Modal footer -->
                                 </div>
                             </div>
                         </div>
 
-                        <i class="far fa-address-card" style=" color:salmon;"></i>
+                        <i class="far fa-address-card" style=" color:salmon;" id="slide1"></i>
 
-                        <a href="#" id="@item.Id" onclick="DetailsPopup(@item.Id)">Details</a>
+                        <a href="#" id="@item.Id" onclick="DetailsPopup(@item.Id)" @*data-toggle="tooltip" data-placement="left"*@ @*title="Details" class="details"*@>Details</a>
                         <div class="modal fade" id="myModal2">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -133,14 +128,14 @@
 
                                     <!-- Modal footer -->
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        @*<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>*@
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <i class="fa fa-window-close" aria-hidden="true" style=" color:red;"> </i>
+                        <i class="fa fa-window-close" aria-hidden="true" style=" color:red;" id="slide2"> </i>
                         @*@Html.ActionLink("Deletee", "Delete", new { id = item.Id })*@
-                        <a href="#" id="@item.Id" onclick="DeleteEmpPopup(@item.Id)">Delete</a>
+                        <a href="#" id="@item.Id" onclick="DeleteEmpPopup(@item.Id)" @*data-toggle="tooltip" data-placement="left"*@ @*title="Delete" class="delete"*@>Delete</a>
                         <div class="modal fade" id="myModal3">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -166,14 +161,24 @@
             </tbody>
         }
     </table>
+    <!-- export to excel    -->
+    <a href="@Url.Action("ExportToExcel","Employees")">Export To Excel</a> <br />
+
+
+    @Html.ActionLink("Export To Excel with report", "Reports", new { ReportType = "Excel" }) <br />
+    @Html.ActionLink("Export To PDF", "Reports", new { ReportType = "PDF" }) <br />
+    @Html.ActionLink("Export To Word", "Reports", new { ReportType = "Word" }) <br />
+    @Html.ActionLink("Export To Image", "Reports", new { ReportType = "Image" })
+
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
     @Html.PagedListPager(Model, page => Url.Action("Index",
-                                                new
-                                                { page,
-                                                    sortOrder = ViewBag.CurrentSort,
-                                                    currentFilter = ViewBag.CurrentFilter,
-                                                    pagesize = ViewBag.CurrentPageSize
-                                                }))
+                                                                            new
+                                                                            {
+                                                                                page,
+                                                                                sortOrder = ViewBag.CurrentSort,
+                                                                                currentFilter = ViewBag.CurrentFilter,
+                                                                                pagesize = ViewBag.CurrentPageSize
+                                                                            }))
 </body>
 </html>
 <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js">
@@ -206,8 +211,9 @@
 </script>
 <script>
     var CreateEmpPopup = function () {
-        var url = "../Employees/CreateEmpView/";
-        $('#CreateEmpPopup').load(url, function () {
+        var url = "../Employees/Create/";
+        $('#CreateEmpPopup').load(url,
+            function () {
             $('#myModal').modal('show');
         })
     }
@@ -229,4 +235,21 @@
         })
     }
 
+</script>
+<script>
+    $(".edit").hide();
+    $(".details").hide();
+    $(".delete").hide();
+    /* start toggle slide icon */
+    $("#slide").click(function () {
+        $(".edit").toggle(100);
+    });
+
+    $("#slide1").click(function () {
+        $(" .details").toggle(100);
+    });
+
+    $("#slide2").click(function () {
+        $(" .delete").toggle(100);
+    });
 </script>

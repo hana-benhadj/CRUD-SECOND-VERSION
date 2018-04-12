@@ -9,6 +9,9 @@
     <link href="~/Content/fontawesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <link href="~/Content/fontawesome-all.css" rel="stylesheet" />
+    <link href="~/Content/CSS/sideNavM.css" rel="stylesheet" />
+    <link href="~/Content/CSS/SidNavv.css" rel="stylesheet" />
+
 </head>
 
 @section Scripts {
@@ -17,28 +20,28 @@
 @RenderSection("head", required: false)
 @RenderSection("scripts", required: false)
 <body>
-   
-    
-
     <script src="http://ajax.aspnetcdn.com/ajax/mvc/5.1/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
     @*<span style="background-color:brown;"><i class="fas fa-user fa-3x"></i></span>*@
     <section class="mt-auto">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
-            <a class="navbar-brand" href="#">Root Campany</a>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-info ">
+            @*<li class="bar-nav">*@
+                
+
+                    <span class="logo" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
+
+               
+            @*</li>*@
+            <a class="navbar-brand" href="#">   Root Campany</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-
-
-
 
             <div style="width: 1700px" class="navbar navbar-default" role="navigation">
 
                 @*<div class="collapse navbar-collapse" id="navbarSupportedContent">*@
                 @*<ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">*@
+            <li class="nav-item active">*@
                 <ul class="collapse navbar-collapse nav navbar-nav top-menu">
                     <li class="dropdown">
                         <a class="nav-link" href="../Home/Index">Home <span class="sr-only">(current)</span></a>
@@ -62,15 +65,58 @@
                         </ul>
                     </li>
 
-                </ul>
-
-                <div class="btn-group pull-right">
-                    <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"></span>
-                    <span class="caret"></span>
-                    <a href="../Account/Login">Logout</a>
-                </div>
         </nav>
     </section>
+    <div id="mySidenav" class="sidenav" >
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        @*<a href="#" class="accordion">About</a>*@
+        <ul id="accordion" class="accordion">
+            <li>
+                <div class="link">
+                    <i class=""></i>Get In Touch
+                    <i class="fa fa-chevron-down"></i>
+                </div>
+                <ul class="submenu">
+                    <li><a href="#" class="fa fa-phone">+966 9 2002 7668</a></li>
+                    <li><a href="#" >hi@root.sa</a></li>
+                    <li><a href="#">Riyadh, Saudi Arabia</a></li>
+
+                </ul>
+            </li>
+            <li>
+                <div class="link">
+                    <i class=""></i>Services Provided
+                    <i class="fa fa-chevron-down"></i>
+                </div>
+                <ul class="submenu">
+                    <li>
+                        <a href="#" class="">
+                            Web Development
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="">Hosting</a>
+                    </li>
+                    <li>
+                        <a href="#" class="">
+                            Mobile Development
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="">
+                            Digital Marketing
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+
+                <div class="link form-inline"><i class="fa fa-sign-out"></i>@Html.ActionLink("Logout", "Login", "Account") </div>
+            </li>
+        </ul>
+      
+    </div>
 
     <div class="container body-content">
         @RenderBody()
@@ -83,3 +129,59 @@
 
 </body>
 </html>
+<script>
+    $(document).ready(function () {
+        $('.btn').on('click', function () {
+            var $this = $(this);
+            var loadingText = '<i class="fa fa-circle-o-notch fa-spin"></i> loading...';
+            if ($(this).html() !== loadingText) {
+                $this.data('original-text', $(this).html());
+                $this.html(loadingText);
+            }
+            setTimeout(function () {
+                $this.html($this.data('original-text'));
+            }, 10000);
+        });
+    })
+</script>
+<script>
+    $(function () {
+        var Accordion = function (el, multiple) {
+            this.el = el || {};
+            this.multiple = multiple || false;
+
+            // Variables privadas
+            var links = this.el.find('.link');
+            // Evento
+            links.on('click', { el: this.el, multiple: this.multiple }, this.dropdown)
+        }
+
+        Accordion.prototype.dropdown = function (e) {
+            var $el = e.data.el;
+            $this = $(this),
+                $next = $this.next();
+
+            $next.slideToggle();
+            $this.parent().toggleClass('open');
+
+            if (!e.data.multiple) {
+                $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+            };
+        }
+
+        var accordion = new Accordion($('#accordion'), false);
+    });
+</script>
+<script>
+
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+
+</script>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>

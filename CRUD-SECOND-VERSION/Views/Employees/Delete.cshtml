@@ -5,11 +5,10 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Are you sure you want to delete this employee?</h3>
 <div>
-    <h4>Employee</h4>
+   
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -29,11 +28,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Department)
+          Department
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Department)
+            @Html.DisplayFor(model => model.Department.Name)
         </dd>
 
     </dl>
@@ -42,9 +41,11 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+    <div class="form-actions no-color">
+        @*<input type="submit" value="Delete" class="btn btn-default" />*@
+        <input type="submit" value="Delete" class="btn btn-outline-danger btn-lg button1" style="width:50%" />
+
+        @*@Html.ActionLink("Back to List", "Index")*@
+    </div>
     }
 </div>
